@@ -20,10 +20,9 @@ class SpringRedisApplicationTests {
     @Autowired TicketService ticketService;
 
     @Test
-    @DisplayName("test")
-    void test() throws InterruptedException {
-        Long tickId = 1L;
-        ticketRepository.save(new Ticket(tickId, 100L));
+    @DisplayName("락을 적용한 메서드는 정확히 100개가 차감된다.")
+    void lockTest() throws InterruptedException {
+        Ticket ticket = ticketRepository.save(new Ticket(100L));
 
         int numberOfThreads = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
@@ -32,7 +31,7 @@ class SpringRedisApplicationTests {
         for (int i = 0; i < numberOfThreads; i++) {
             executorService.submit(() -> {
                 try {
-                    ticketService.buyTicket(tickId);
+                    ticketService.decrementWithLock(ticket.getId());
                 } finally {
                     latch.countDown();
                 }
@@ -41,7 +40,32 @@ class SpringRedisApplicationTests {
 
         latch.await();
 
-        Ticket ticket = ticketRepository.findById(tickId).orElseThrow(RuntimeException::new);
-        Assertions.assertThat(ticket.getQuantity()).isZero();
+        Ticket persistTicket = ticketRepository.findById(ticket.getId()).orElseThrow(RuntimeException::new);
+        Assertions.assertThat(persistTicket.getQuantity()).isZero();
+    }
+
+    @Test
+    @DisplayName("락을 적용하지 않은 메서드는 동시성 문제가 발생한다.")
+    void unLockTest() throws InterruptedException {
+        Ticket ticket = ticketRepository.save(new Ticket(100L));
+
+        int numberOfThreads = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
+        CountDownLatch latch = new CountDownLatch(numberOfThreads);
+
+        for (int i = 0; i < numberOfThreads; i++) {
+            executorService.submit(() -> {
+                try {
+                    ticketService.decrement(ticket.getId());
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+
+        Ticket persistTicket = ticketRepository.findById(ticket.getId()).orElseThrow(RuntimeException::new);
+        Assertions.assertThat(persistTicket.getQuantity()).isNotZero();
     }
 }

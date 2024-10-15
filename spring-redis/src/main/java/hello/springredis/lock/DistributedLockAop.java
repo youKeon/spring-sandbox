@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -16,6 +17,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @RequiredArgsConstructor
+@Order(value = 1)
 public class DistributedLockAop {
     private static final String REDISSON_LOCK_PREFIX = "LOCK:";
 
@@ -44,7 +46,7 @@ public class DistributedLockAop {
             try {
                 rLock.unlock();   // (4)
             } catch (IllegalMonitorStateException e) {
-                e.printStackTrace();
+                log.error("fail to unlock");
             }
         }
     }

@@ -19,6 +19,10 @@ public class Ticket {
     private Long id;
     private Long quantity;
 
+    public Ticket(Long quantity) {
+        this.quantity = quantity;
+    }
+
     public void increase() {
         validateCheck();
         this.quantity++;

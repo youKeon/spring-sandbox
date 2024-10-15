@@ -10,7 +10,16 @@ public class TicketService {
     private final TicketRepository ticketRepository;
 
     @Transactional
-    public void buyTicket(Long ticketId) {
+    @DistributedLock(key = "#lockName")
+    public void decrementWithLock(Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new RuntimeException("account not found"));
+
+        ticket.decrease();
+    }
+
+    @Transactional
+    public void decrement(Long ticketId) {
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("account not found"));
 
