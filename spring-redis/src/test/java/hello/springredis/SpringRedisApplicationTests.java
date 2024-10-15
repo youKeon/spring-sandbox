@@ -1,8 +1,8 @@
 package hello.springredis;
 
-import hello.springredis.lock.Ticket;
-import hello.springredis.lock.TicketRepository;
-import hello.springredis.lock.TicketService;
+import hello.springredis.lock.domain.Ticket;
+import hello.springredis.lock.domain.TicketRepository;
+import hello.springredis.lock.service.TicketService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

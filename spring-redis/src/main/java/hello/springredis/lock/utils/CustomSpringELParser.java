@@ -1,4 +1,4 @@
-package hello.springredis.lock;
+package hello.springredis.lock.utils;
 
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;

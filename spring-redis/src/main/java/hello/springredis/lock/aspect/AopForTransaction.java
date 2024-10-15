@@ -1,4 +1,4 @@
-package hello.springredis.lock;
+package hello.springredis.lock.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;

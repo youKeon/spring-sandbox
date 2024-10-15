@@ -1,6 +1,5 @@
-package hello.springredis.lock;
+package hello.springredis.lock.global;
 
-import lombok.Value;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;

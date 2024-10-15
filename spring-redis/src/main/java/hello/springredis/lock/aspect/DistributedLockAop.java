@@ -1,5 +1,6 @@
-package hello.springredis.lock;
+package hello.springredis.lock.aspect;
 
+import hello.springredis.lock.utils.CustomSpringELParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,7 +25,7 @@ public class DistributedLockAop {
     private final RedissonClient redissonClient;
     private final AopForTransaction aopForTransaction;
 
-    @Around("@annotation(hello.springredis.lock.DistributedLock)")
+    @Around("@annotation(hello.springredis.lock.aspect.DistributedLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

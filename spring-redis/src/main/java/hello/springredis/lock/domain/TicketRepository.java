@@ -1,4 +1,4 @@
-package hello.springredis.lock;
+package hello.springredis.lock.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

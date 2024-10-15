@@ -1,4 +1,4 @@
-package hello.springredis.lock;
+package hello.springredis.lock.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

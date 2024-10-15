@@ -1,5 +1,8 @@
-package hello.springredis.lock;
+package hello.springredis.lock.service;
 
+import hello.springredis.lock.aspect.DistributedLock;
+import hello.springredis.lock.domain.Ticket;
+import hello.springredis.lock.domain.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

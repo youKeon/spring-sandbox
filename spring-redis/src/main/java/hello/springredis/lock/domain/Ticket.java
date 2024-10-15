@@ -1,4 +1,4 @@
-package hello.springredis.lock;
+package hello.springredis.lock.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
