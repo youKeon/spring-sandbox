@@ -1,4 +1,4 @@
-package hello.springredis;
+package hello.springredis.lock;
 
 import hello.springredis.lock.domain.Ticket;
 import hello.springredis.lock.domain.TicketRepository;
@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SpringBootTest
-class SpringRedisApplicationTests {
+class RedisDistributeLockTest {
     @Autowired TicketRepository ticketRepository;
 
     @Autowired TicketService ticketService;
