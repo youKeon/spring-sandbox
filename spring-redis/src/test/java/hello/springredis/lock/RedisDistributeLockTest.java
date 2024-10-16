@@ -21,7 +21,7 @@ class RedisDistributeLockTest {
 
     @Test
     @DisplayName("락을 적용한 메서드는 정확히 100개가 차감된다.")
-    void lockTest() throws InterruptedException {
+    void 락을_적용한_메서드() throws InterruptedException {
         Ticket ticket = ticketRepository.save(new Ticket(100L));
 
         int numberOfThreads = 100;
@@ -46,7 +46,7 @@ class RedisDistributeLockTest {
 
     @Test
     @DisplayName("락을 적용하지 않은 메서드는 동시성 문제가 발생한다.")
-    void unLockTest() throws InterruptedException {
+    void 락을_적용하지_않은_메서드() throws InterruptedException {
         Ticket ticket = ticketRepository.save(new Ticket(100L));
 
         int numberOfThreads = 100;
