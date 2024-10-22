@@ -8,11 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RedissonConfig {
-    private static final String REDIS_HOST = "localhost";
-
-    private static final int REDIS_PORT = 6379;
-
     private static final String REDISSON_HOST_PREFIX = "redis://";
+    private static final String REDIS_HOST = "localhost";
+    private static final int REDIS_PORT = 6379;
 
     @Bean
     public RedissonClient redissonClient() {
